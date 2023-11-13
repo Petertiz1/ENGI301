@@ -8,4 +8,6 @@ Hall Effect Sensor to calibrate the stepper motors to start from a known positio
 
 Libraries used: <libraries>
 
+Make sure that you have the Motor, Button and SPI_Screen drivers in known folders. Then run the main code using the absolute file location addresses of the different drivers.
+
 HackStar Link: 
