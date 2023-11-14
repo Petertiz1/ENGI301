@@ -154,12 +154,12 @@ class Button():
         #   GPIO pin of the buton (i.e. self.pin) to the "unpressed value" 
         #   of the class (i.e. we are executing the while loop while the 
         #   button is not being pressed)
-        while(not self.is_pressed()):
+        # while(not self.is_pressed()):
         
-            if function is not None:
-                function_return_value = function()
+        #     if function is not None:
+        #         function_return_value = function()
                 
-            time.sleep(self.sleep_time)
+        #     time.sleep(self.sleep_time)
         
         # Record time
         button_press_time = time.time()
@@ -196,7 +196,7 @@ if __name__ == '__main__':
     print("Button Test")
 
     # Create instantiation of the button
-    button = Button("P2_4")
+    button = Button("P2_20")
     
     # Create an function to test the wait_for_press function
     def print_time():

@@ -162,7 +162,57 @@ class SPI_Display():
 
     # End def
 
-    def text(self, value, fontsize=24, fontcolor=(255,255,255), 
+
+    def _get_dimensions(self, rotation):
+        """Get display dimensions"""
+        # Check image rotation
+        if rotation % 180 == 90:
+            height = self.display.width  # Swap height/width to rotate it to landscape!
+            width  = self.display.height
+        else:
+            width  = self.display.width
+            height = self.display.height
+        
+        return (width, height)
+
+    # End def
+
+
+    def image(self, filename, rotation=90):
+        """Display the image on the screen"""
+        # Fill display with black pixels to clear the image
+        self.blank()
+
+        # Create image with file name
+        image = Image.open(filename)
+
+        # Get screen dimensions
+        width, height = self._get_dimensions(rotation)
+
+        # Scale the image to the smaller screen dimension
+        image_ratio  = image.width / image.height
+        screen_ratio = width / height
+        if screen_ratio < image_ratio:
+            scaled_width  = image.width * height // image.height
+            scaled_height = height
+        else:
+            scaled_width  = width
+            scaled_height = image.height * width // image.width
+        
+        image = image.resize((scaled_width, scaled_height), Image.BICUBIC)
+
+        # Crop and center the image
+        x = scaled_width  // 2 - width  // 2
+        y = scaled_height // 2 - height // 2
+        image = image.crop((x, y, x + width, y + height))
+
+        # Display image
+        self.display.image(image)
+        
+    # End def
+    
+
+    def text(self, value, fontsize=22, fontcolor=(255,255,255), 
                    backgroundcolor=(0,0,0), justify=LEFT, align=TOP, 
                    rotation=90):
         """ Update the display with text
@@ -306,9 +356,9 @@ if __name__ == '__main__':
     display.fill((0, 0, 255))   
     time.sleep(delay)
     
-    # print("Display blinka.jpg")
-    # display.image("blinka.jpg")
-    # time.sleep(delay)
+    print("Display blinka.jpg")
+    display.image("blinka.jpg")
+    time.sleep(delay)
 
     print("Display Text")
     display.text("This is some text!!")

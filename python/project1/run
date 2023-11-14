@@ -34,8 +34,8 @@
 # Run People Counter
 # 
 # --------------------------------------------------------------------------
-cd <People Counter Directory>
+cd /var/lib/cloud9/ENGI301/python/project1
 ./configure_pins.sh
-PYTHONPATH=<HT16K33 Library Directory:Button Directory> python3 people_counter.py
+PYTHONPATH=/var/lib/cloud9/ENGI301/python/project1:/var/lib/cloud9/ENGI301/python/project1 python3 project01_Peter.py
 
 
